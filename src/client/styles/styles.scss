@@ -1,0 +1,661 @@
+@import "common";
+@include reset;
+@include scrollBeautifly;
+@include buttonReset;
+
+$bgc: rgb(212, 216, 221);
+$newMissionColor: #e2e4e6;
+$phaseColor: rgba(23,23,23,0.1);
+
+$workLogColor: #7BA23F;
+$estimateColor: #AB3B3A;
+
+$phasePadding: 5px;
+$phaseMargin: 10px;
+$phaseWidth: calc(100% / 4 - (#{$phasePadding} + #{$phaseMargin}) * 2);
+
+$transitionTime: 0.16s;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: $bgc;
+	color: #333;
+	font-family: Arial;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+textarea {
+	font-family: Arial;
+}
+
+.block {
+	display: block;
+	width: 100%;
+}
+
+.routerContainer{
+	position: relative;
+	width: 100%;
+}
+
+.app {
+	padding: 40px 30px 0 30px;
+	position: relative;
+
+	> header {
+
+		background: #545365;
+
+		color: #d6d5d5;
+
+		height: 40px;
+		line-height: 40px;
+		width: 100%;
+
+		position: fixed;
+		top: 0;
+		left: 0;
+
+		padding: 0 30px;
+
+		z-index: 1;
+
+		.name {
+			font-size: 12px;
+		}
+
+		button {
+			padding: 0 15px;
+			color: inherit;
+			height: 40px;
+
+			&:hover {
+				color: #fdfdfd;
+			}
+		}
+	}
+}
+
+.mission {
+	cursor:pointer;
+
+	position: relative;
+
+	padding: 5px;
+
+	&.slim {
+		transition: background $transitionTime;
+		&:hover {
+			background: darken($bgc, 2%);
+		}
+	}
+
+	.missionName {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 5px 10px 0 0;
+	}
+
+	.editMissionButton {
+		padding: 5px;
+		font-size: 14px;
+
+		&:hover {
+			background: darken($bgc, 5%);
+
+			i {
+				opacity: 1;
+			}
+		}
+
+		i {
+			color: #666;
+			opacity: 0;
+		}
+	}
+
+	.deleteMissionButton {
+
+		// background: #444;
+		color: #666;
+		font-size: 12px;
+		font-weight: bold;
+
+		position: absolute;
+		top: 5px;
+		right: 5px;
+
+		padding: 5px;
+
+		transition: all $transitionTime;
+
+		&:hover {
+			color: #d2d2d2;
+			background: #9a4b4b;
+		}
+	}
+
+	.missionBody {
+
+		.missionStatus{
+			margin: $phaseMargin 0;
+			padding: $phasePadding;
+			height: 100%;
+			display: inline-block;
+			background-color: rgba(23,23,23,0.1);
+			vertical-align: top;
+			background-color: $newMissionColor;
+			border-radius: 3px;
+			text-align: center;
+		}
+
+		.phase{
+			margin: $phaseMargin;
+			margin-right: 0;
+			padding: $phasePadding;
+			height: 100%;
+			display: inline-block;
+			background-color: $phaseColor;
+			vertical-align: top;
+			min-height: 100px;
+
+			&.slim{
+				background-color: rgba(23,23,23,0.1);
+			}
+
+			.phaseName{
+				padding: 5px 5px 5px 8px;
+
+				font-size: 12px;
+				font-weight: bold;
+			}
+
+			.task{
+				padding: 0 30px 0 5px;
+				margin: 5px;
+				cursor:pointer;
+				background-color: $newMissionColor;
+				border-bottom: 1px solid #aaa;
+
+				height: 30px;
+				line-height: 30px;
+
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+
+				position: relative;
+
+				button {
+					position: absolute;
+					right: 0;
+					top: 0;
+					height: 30px;
+					width: 30px;
+					opacity: 0;
+					color: #666;
+
+					&:hover {
+						color: #333;
+					}
+				}
+
+				&:hover {
+					background-color: darken($newMissionColor, 5%);
+
+					button {
+						opacity: 1;
+					}
+				}
+			}
+
+			.create, .more {
+				background: transparent;
+				color: #666;
+				font-size: 12px;
+				font-weight: bold;
+				text-align: center;
+				transition: all $transitionTime;
+
+				border-bottom: 1px solid transparent;
+
+				&:hover {
+					background: $newMissionColor;
+					border-bottom: 1px solid #aaa;
+				}
+			}
+		}
+	}
+	
+}
+
+.createMissionButton {
+	margin: 15px 0 30px 0;
+}
+
+.darkButton {
+	background: #444;
+	box-shadow: 0px 3px 3px 0px #aaa;
+	color: #ccc;
+	display: block;
+	font-weight: bold;
+	padding: 5px;
+	width: 100%;
+	height: 30px;
+	transition: all 0.15s;
+
+	&:hover {
+		background: #333;
+	}
+}
+
+.statusImg{
+	width: 100px;
+	height: 100px;
+}
+
+.progressView{
+
+	color: #444;
+	font-style: italic;
+	margin: 15px 0;
+
+	text-align: center;
+
+	.progressCircle {
+
+		position: relative;
+		margin-bottom: 12px;
+
+		svg {
+			max-width: 250px;
+			width: 100%;
+		}
+
+		span {
+			text-align: center;
+			position: absolute;
+			left: 0;
+			top: calc(50% - 32px);
+			width: 100%;
+			font-weight: bold;
+			font-size: 72px;
+		}
+	}
+}
+
+@include modal;
+
+@mixin specInput{
+	input, textarea
+	{
+		transition: all $transitionTime;
+		border: 1px #fff solid;
+		outline: none;
+
+		&:hover{
+			transition:  all $transitionTime;
+			background-color: #f9f9f9;
+			border: 1px #ccc solid;
+		}
+
+		&:focus{
+			transition: all $transitionTime;
+			background-color: #fff;
+			border: 1px #ccc solid;
+		}
+	}
+}
+
+@mixin quickBtn($MAIN){
+	background-color: $MAIN;
+	border: 1px lighten($MAIN,5%) solid;
+	transition: all $transitionTime;
+
+	&:hover{
+		background-color: darken($MAIN,10%);
+		transition: all $transitionTime;
+	}
+
+	&:active{
+		background-color: darken($MAIN,15%);
+		transition: all $transitionTime;
+	}
+}
+
+.taskView{
+	@include specInput;
+
+	> div {
+		max-width: 600px;
+	}
+
+	input{
+		border: 0;
+		height: 30px;
+	}
+
+	hr {
+		border: 0;
+		border-bottom: 1px solid #ccc;
+	}
+
+	textarea, input[type=number] {
+	    background-color: #f9f9f9;
+	}
+
+	&.update {
+		.taskName{
+			font-size: 20pt;
+			width: calc(100% - 100px);
+			border: 1px #fff solid;
+		    margin-bottom: 5px;
+		}
+
+		.taskDescription{
+			width: 100%;
+			display: block;
+			resize : none;
+			overflow-y: hidden;
+			border-radius: 3px;
+			margin: 12px 0;
+		}
+
+		.taskTime{
+			color: #aaa;
+			font-size: 12px;
+		}
+	}
+
+	.closeModalButton {
+		margin-top: 8px;
+	}
+
+	.taskSelector{
+		position: absolute;
+		top: 0;
+		right: 30px;
+		height: 80px;
+		display:flex;
+		align-items:flex-end;
+		background-color: #123456;
+		border-bottom-right-radius: 3px;
+		border-bottom-left-radius: 3px;
+
+		.taskPhaseSelect{
+			bottom: 0;
+			height: 40px;
+			width: 100px;
+			font-size: 16pt;
+			border: 0;
+			background-color: rgba(0,0,0,0);
+			color: #fff;
+			text-align-last:center;
+			outline: none;
+
+			&:hover{
+				cursor: pointer;
+			}
+
+			option{
+				color: #fff;
+			}
+
+			option[value="todo"]{
+				background-color: #AB3B3A;
+			}
+
+			option[value="doing"]{
+				background-color: #F9BF45;
+			}
+
+			option[value="done"]{
+				background-color: #7BA23F;
+			}
+		}
+	}
+
+	.timeAndDelete {
+		.timeOverview {
+			color: #666;
+			font-size: 14px;
+			line-height: 30px;
+		}
+
+		.deleteTaskButton {
+			background: #5a5a5a;
+			color: #eee;
+			float: right;
+			margin: 0 0 0 5px;
+
+			height: 30px;
+			font-weight: bold;
+
+			padding: 0 10px;
+		}
+	}
+
+	
+
+	.createLogBlock {
+
+		label {
+			color: #666;
+			display: block;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 10px 0;
+		}
+
+		.taskCommentSendBox{
+			margin-bottom: 5px;
+
+			.taskComment{
+				width: 100%;
+				display: inline-block;
+				resize: none;
+			}
+		}
+
+		.taskTimeLogArea{
+			margin-bottom: 10px;
+
+			button{
+				color: #eee;
+				margin: 0 0 0 5px;
+
+				border: 1px solid #ccc;
+				height: 30px;
+				font-weight: bold;
+
+				padding: 0 10px;
+
+				&.taskLogButton{
+					@include quickBtn($workLogColor);
+				}
+
+				&.taskEstimateButton{
+					@include quickBtn($estimateColor);
+				}
+			}
+
+			> div {
+				display: flex;
+
+				> input {
+					flex: 1;
+				}
+			}
+		}
+
+		.taskTimeLogInput{
+			border: 1px solid #fff;
+		}
+	}
+
+	.log {
+		width: 100%;
+		padding: 10px;
+		// border-bottom: 1px solid #eee;
+		margin-bottom: 3px;
+		transition: all $transitionTime;
+
+		position: relative;
+
+		&.worklog {
+			border-left: 3px solid $workLogColor;
+		}
+
+		&.estimate {
+			border-left: 3px solid $estimateColor;
+		}
+
+		&:last-child{
+			// border: 0;
+		}
+
+		.deleteButton {
+			color: #666;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: 30px;
+			height: 30px;
+		}
+
+		> div{
+			white-space: pre-line;
+		}
+		
+
+		&:hover{
+			background-color: rgba(23,23,23,0.05);
+			transition: all $transitionTime;
+
+			.deleteButton {
+				opacity: 1;
+
+				&:hover {
+					color: #333;
+				}
+			}
+		}
+
+		.options {
+			margin-top: 5px;
+			color: #777;
+			font-size: 12px;
+
+			button {
+				color: inherit;
+			}
+		}
+
+		input {
+			width: 100px;
+		}
+
+		textarea {
+			width: calc(100% - 30px);
+			resize: none;
+		}
+	}
+}
+
+.modal > div{
+	text-align: initial;
+}
+
+.loginModal > div {
+	text-align: center;
+	padding: 0;
+	min-width: 0;
+	background: none;
+	box-shadow: none;
+}
+
+
+// Responsive Web Design
+$screen-xs: 480px;
+$screen-sm: 768px;
+$screen-md: 992px;
+
+//Phone only
+@media (max-width: $screen-sm - 1) {
+	.hidden-phone {
+		display: none !important;
+	}
+
+	.mission {
+
+		.missionName {
+			padding: 0;
+		}
+
+		.missionStatus, .phase {
+			width: 100%;
+			margin: 10px 0;
+		}
+
+		.phase {
+			min-height: initial;
+			margin-left: 0 !important;
+		}
+	}
+}
+
+//Bigger than phone
+@media (min-width: $screen-sm) {
+	.visible-phone {
+		display: none !important;
+	}
+}
+
+//Tablet only
+@media (min-width: $screen-sm) and (max-width: $screen-md - 1) {
+	.mission {
+
+		margin-left: -10px;
+
+		.missionStatus {
+			width: calc(100% - 10px);
+			margin: 10px 0 10px 10px !important;
+		}
+
+		.phase {
+			width: calc(100% / 3 - 20px / 2);
+			margin: 10px 0 10px 10px;
+		}
+	}
+}
+
+//Desktop only
+@media (min-width: $screen-md) {
+	.hidden-desktop {
+		display: none !important;
+	}
+
+	.mission {
+		.missionBody {
+			display: flex;
+
+			.missionStatus {
+				flex: 1;
+				width: 1px;
+			}
+
+			.phase {
+				flex: 1;
+				width: 1px;
+			}
+		}
+	}
+}

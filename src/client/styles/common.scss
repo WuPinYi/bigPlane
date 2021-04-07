@@ -1,0 +1,144 @@
+@mixin reset{
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+}
+
+@mixin modal{
+
+	// This class will be added to body element automatically
+	.modalOpened {
+		overflow: hidden;
+	}
+
+	.modal {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		z-index: 1;
+		box-sizing: border-box;
+		background-color: rgb(0,0,0);
+		background-color: rgba(0,0,0,0.75);
+		text-align: center;
+	
+		&:before {
+			content: "";
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			margin-right: -0.05em;
+		}
+	
+		> div {
+			display: inline-block;
+			vertical-align: middle;
+			position: relative;
+			z-index: 2;
+			width: 100%;
+			max-width: 400px;
+			background: #fff;
+			padding: 30px 50px;
+			-webkit-box-shadow: 0 0 10px #000;
+			-moz-box-shadow: 0 0 10px #000;
+			-o-box-shadow: 0 0 10px #000;
+			-ms-box-shadow: 0 0 10px #000;
+			box-shadow: 0 0 10px #000;
+			text-align: center;
+	
+			h2 {
+				font-family: TimesNewRomanPS-MT;
+				font-size: 30px;
+				font-weight: bold;
+				color: #4a4a4a;
+			}
+	
+			h3 {
+				font-size: 18px;
+				font-weight: normal;
+				color: #4a4a4a;
+				margin-bottom: 26px;
+			}
+		
+			form {
+				width: 300px;
+			}
+		}
+	}
+}
+
+@mixin scrollBeautifly($track:#eee, $thumb: #ccc, $border:#fff){
+	::-webkit-scrollbar {
+	  width: 7px;
+	  height: 7px; }
+	
+	::-webkit-scrollbar-button {
+	  width: 0px;
+	  height: 0px; }
+	
+	::-webkit-scrollbar-thumb {
+	  background: $thumb;
+	  border: 0px none $border;
+	  border-radius: 50px; }
+	
+	::-webkit-scrollbar-track {
+	  background: $track;
+	  border: 0px none $border;
+	  border-radius: 50px; }
+	
+	::-webkit-scrollbar-corner {
+	  background: transparent; }
+}
+
+@mixin buttonReset{
+	button {
+		background: none;
+		padding: 0px;
+		border: none;
+		outline: none;
+	}
+}
